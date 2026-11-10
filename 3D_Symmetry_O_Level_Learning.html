@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>3D Symmetry – O Level Learning</title>
+<style>
+:root{--ac:#4f46e5;--or:#f97316;--bg:#f5f5f7;--tx:#1d1d1f;--mu:#6e6e73}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--tx)}
+header{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);border-bottom:1px solid #e5e5ea;padding:10px 16px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+h1{font-size:17px;margin:0}h2{font-size:26px;margin:0 0 4px}h3{font-size:15px;margin:18px 0 4px;color:var(--ac)}
+nav,.pills{display:flex;gap:6px;flex-wrap:wrap}
+nav button,.pills button,.btn{font:inherit;font-size:14px;border:1px solid #d9d9de;background:#fff;color:var(--tx);padding:6px 13px;border-radius:999px;cursor:pointer;transition:.15s}
+nav button.on,.pills button.on,.btn.pri{background:var(--ac);color:#fff;border-color:var(--ac)}
+nav button:hover,.pills button:hover,.btn:hover{border-color:var(--ac)}
+main{max-width:1150px;margin:0 auto;padding:20px 16px 60px}
+.tab{display:none}.tab.on{display:block;animation:f .3s}@keyframes f{from{opacity:0;transform:translateY(6px)}}
+.sub{color:var(--mu);margin:0 0 18px}
+.grid{display:grid;grid-template-columns:1fr 1.1fr;gap:18px;align-items:start}
+@media(max-width:860px){.grid{grid-template-columns:1fr}.view{height:320px!important}}
+.card{background:#fff;border-radius:18px;padding:20px;box-shadow:0 2px 14px rgba(0,0,0,.06)}
+.view{height:430px;border-radius:18px;background:radial-gradient(circle at 50% 40%,#fff,#e9ebf5);box-shadow:0 2px 14px rgba(0,0,0,.06);overflow:hidden;touch-action:none}
+.view canvas{display:block}
+.hint{font-size:13px;color:var(--mu);margin:6px 2px}
+.formula{background:#eef0ff;color:var(--ac);border-radius:12px;padding:10px 14px;font-weight:600;text-align:center}
+.warn{background:#fff4ec;border-left:4px solid var(--or);padding:10px 14px;border-radius:8px;font-size:14px}
+.ok,.no{display:inline-block;padding:4px 12px;border-radius:999px;font-weight:600;font-size:14px}
+.ok{background:#dcfce7;color:#166534}.no{background:#f1f1f4;color:var(--mu)}
+.big{font-size:38px;font-weight:700;letter-spacing:-1px}
+input[type=range]{width:100%;accent-color:var(--ac)}
+.ticks{position:relative;height:18px;margin:0 8px}
+.ticks i{position:absolute;top:0;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--or)}
+.ticks b{position:absolute;top:10px;font-size:10px;color:var(--mu);transform:translateX(-50%);font-weight:400}
+details{margin-top:14px;background:#f5f5f7;border-radius:12px;padding:10px 14px}summary{cursor:pointer;font-weight:600}
+table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:8px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;padding:12px 16px;border:1px solid #d9d9de;background:#fff;border-radius:12px;font:inherit;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--ac)}.opt.right{background:#dcfce7;border-color:#22c55e}.opt.wrong{background:#fee2e2;border-color:#ef4444}
+.bar{height:6px;background:#e5e5ea;border-radius:9px;overflow:hidden;margin-bottom:14px}.bar div{height:100%;background:var(--ac);transition:.3s}
+.fb{margin-top:12px;padding:12px 14px;border-radius:12px;background:#f5f5f7}
+</style></head><body>
+<header><h1>🧊 3D Symmetry</h1>
+<nav id="nav"><button data-t="a">A · Axes</button><button data-t="b">B · Rotational order</button><button data-t="c">C · Planes</button><button data-t="x">Explorer</button><button data-t="q">Quiz</button></nav></header>
+<main>
+
+<!-- ============ SECTION A ============ -->
+<section id="a" class="tab"><h2>Lines &amp; axes of symmetry</h2><p class="sub">Spin it. Does it look the same?</p>
+<div class="grid"><div class="card">
+<h3>1 · Definition</h3>
+<p><b>2D line of symmetry:</b> fold the shape along the line and the two halves match exactly.<br>
+<b>3D axis of symmetry:</b> a line through a solid. Turn the solid about it by less than 360° and it looks unchanged.</p>
+<h3>2 · Everyday analogy</h3>
+<p>A paper butterfly folds in half (a <i>line</i>). A plain round bottle looks the same as you spin it on a table (an <i>axis</i>).</p>
+<svg viewBox="0 0 120 80" width="150" style="display:block;margin:6px 0"><rect x="30" y="10" width="60" height="60" fill="#eef0ff" stroke="#4f46e5" stroke-width="2"/><g stroke="#f97316" stroke-dasharray="4 3" stroke-width="1.5"><line x1="60" y1="4" x2="60" y2="76"/><line x1="24" y1="40" x2="96" y2="40"/><line x1="26" y1="6" x2="94" y2="74"/><line x1="94" y1="6" x2="26" y2="74"/></g></svg>
+<p class="hint">A square has 4 lines of symmetry (2D). A solid has axes (3D).</p>
+<h3>4 · Worked example</h3>
+<p>A cylinder has a main axis through the centres of its two circular faces. Turn it by any angle about this line and it looks identical.</p>
+<details><summary>Quick check: how many lines of symmetry does a rectangle (not a square) have?</summary><p>2 (one horizontal, one vertical). The diagonals are not lines of symmetry.</p></details>
+</div><div><div class="view" id="vA"></div><p class="hint">Drag to rotate · scroll/pinch to zoom · dashed orange line = axis</p>
+<div class="card" style="margin-top:10px"><h3 style="margin-top:0">3 · Try it: choose a solid, then an axis</h3><div class="pills" id="pA"></div><div class="pills" id="axA" style="margin-top:8px"></div><p id="whyA"></p></div></div></div></section>
+
+<!-- ============ SECTION B ============ -->
+<section id="b" class="tab"><h2>Order of rotational symmetry</h2><p class="sub">How many times does it fit onto itself in one full turn?</p>
+<div class="grid"><div class="card">
+<h3>1 · Definition</h3><p>The <b>order of rotational symmetry</b> is the number of times a solid fits exactly onto itself during one complete 360° turn about a <b>specified axis</b>.</p>
+<div class="formula">Order = 360° ÷ smallest angle of rotation</div>
+<h3>2 · Everyday analogy</h3><p>A square coffee coaster: turn it a quarter-turn and it still covers the same spot. 4 fits per full turn.</p>
+<div class="warn"><b>Always name the axis.</b> A cube has order 4 about a face-to-face axis, order 3 about a vertex-to-vertex axis and order 2 about an edge-to-edge axis.</div>
+<h3>4 · Worked examples</h3>
+<table><tr><td>Cube, through centres of opposite faces</td><td>90° → <b>4</b></td></tr><tr><td>Square-based prism, principal axis</td><td>90° → <b>4</b></td></tr><tr><td>Equilateral triangular prism, principal axis</td><td>120° → <b>3</b></td></tr><tr><td>Cylinder, central axis</td><td><b>∞</b></td></tr><tr><td>Sphere, any axis through centre</td><td><b>∞</b></td></tr></table>
+<details><summary>Quick check: order of a cube about an axis through opposite vertices?</summary><p>3 (smallest turn 120°).</p></details>
+</div><div><div class="view" id="vB"></div><p class="hint">Faint indigo outline = the original position.</p>
+<div class="card" style="margin-top:10px"><h3 style="margin-top:0">3 · Try it</h3><div class="pills" id="pB"></div><div class="pills" id="axB" style="margin-top:8px"></div>
+<input type="range" id="slB" min="0" max="360" value="0" style="margin-top:14px"><div class="ticks" id="tkB"></div>
+<div style="display:flex;gap:8px;margin:8px 0"><button class="btn" id="nxB">Next match</button><button class="btn pri" id="plB">Play</button></div><div id="rdB"></div></div></div></div></section>
+
+<!-- ============ SECTION C ============ -->
+<section id="c" class="tab"><h2>Planes of symmetry</h2><p class="sub">Cut it in two. Are the halves mirror images?</p>
+<div class="grid"><div class="card">
+<h3>1 · Definition</h3><p>A <b>plane of symmetry</b> cuts a solid into two identical halves that are mirror images of each other.</p>
+<h3>2 · Everyday analogy</h3><p>Stand in front of a mirror: the mirror is a plane, and your reflection is the matching half.</p>
+<h3>4 · Worked examples</h3>
+<table><tr><td>Cube</td><td>9 (3 parallel to faces + 6 diagonal)</td></tr><tr><td>Cuboid (unequal sides)</td><td>3</td></tr><tr><td>Square-based pyramid</td><td>4</td></tr><tr><td>Regular tetrahedron</td><td>6</td></tr><tr><td>Cylinder, sphere</td><td>infinitely many</td></tr></table>
+<div class="warn" style="margin-top:10px">Planes of symmetry (reflection) are <b>not</b> the same as order of rotational symmetry (turning). A cube has 9 planes but order 4, 3 or 2 depending on the axis.</div>
+<details><summary>Quick check: do the diagonal planes of a 3 × 2 × 1 cuboid give identical halves?</summary><p>No. Only the 3 planes parallel to the faces do, so a cuboid has 3 planes.</p></details>
+</div><div><div class="view" id="vC"></div><p class="hint">Dark and light halves show the mirror pair.</p>
+<div class="card" style="margin-top:10px"><h3 style="margin-top:0">3 · Try it</h3><div class="pills" id="pC"></div><div class="pills" id="plC" style="margin-top:8px"></div>
+<div style="display:flex;gap:10px;align-items:center;margin-top:12px"><button class="btn" id="tgC">Hide plane</button><label style="flex:1;font-size:14px">Pull halves apart<input type="range" id="spC" min="0" max="1.5" step="0.01" value="0"></label></div><p id="txC"></p></div></div></div></section>
+
+<!-- ============ EXPLORER ============ -->
+<section id="x" class="tab"><h2>3D explorer</h2><p class="sub">Pick any solid and explore all of its symmetry.</p>
+<div class="pills" id="pX" style="margin-bottom:14px"></div>
+<div class="grid"><div><div class="view" id="vX"></div></div><div>
+<div class="card"><h3 style="margin-top:0">Axes of rotational symmetry</h3><p id="sumX"></p><div class="pills" id="axX"></div></div>
+<div class="card" style="margin-top:12px"><h3 style="margin-top:0">Order (about the chosen axis)</h3><p id="ordX"></p></div>
+<div class="card" style="margin-top:12px"><h3 style="margin-top:0">Planes of symmetry</h3><p id="plsX"></p><div class="pills" id="plX"></div></div></div></div>
+<div class="card" style="margin-top:18px"><h3 style="margin-top:0">Rotational vs reflectional symmetry</h3>
+<table><tr><th></th><th>Rotational</th><th>Reflectional</th></tr><tr><td>Uses</td><td>an axis (a line)</td><td>a plane (a mirror)</td></tr><tr><td>Action</td><td>turn the solid</td><td>reflect the solid</td></tr><tr><td>Count</td><td>order, per axis</td><td>number of planes</td></tr></table></div></section>
+
+<!-- ============ QUIZ ============ -->
+<section id="q" class="tab"><h2>Practice quiz</h2><p class="sub">10 questions · CAIE O Level style</p>
+<div class="grid"><div class="card" id="qbox"></div><div class="view" id="vQ" hidden></div></div></section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+/* ---------- DATA: verified symmetry of each solid ---------- */
+const INF=Infinity, $=s=>document.querySelector(s), V=(x,y,z)=>new THREE.Vector3(x,y,z).normalize();
+// AX: list of axis directions, all with the same order n and description l
+const AX=(ds,n,l)=>ds.map(d=>({d:V(...d),n,l})), PL=(ns,l)=>ns.map(n=>({n:V(...n),l}));
+const XYZ=[[1,0,0],[0,1,0],[0,0,1]];
+const EDGE=[[1,1,0],[1,-1,0],[1,0,1],[1,0,-1],[0,1,1],[0,1,-1]];
+const S={
+ cube:{name:'Cube',planes:'9',sum:'3 axes of order 4, 4 axes of order 3, 6 axes of order 2',
+  axes:[...AX(XYZ,4,'Through the centres of opposite faces'),...AX([[1,1,1],[1,1,-1],[1,-1,1],[-1,1,1]],3,'Through opposite vertices'),...AX(EDGE,2,'Through the midpoints of opposite edges')],
+  planes:[...PL(XYZ,'Parallel to a pair of faces'),...PL(EDGE,'Diagonal plane through two opposite edges')]},
+ cuboid:{name:'Cuboid',planes:'3',sum:'3 axes, each of order 2',
+  axes:AX(XYZ,2,'Through the centres of opposite faces'),planes:PL(XYZ,'Parallel to a pair of faces')},
+ sqprism:{name:'Square prism',planes:'5',sum:'1 axis of order 4, 4 axes of order 2',
+  axes:[...AX([[0,1,0]],4,'Principal axis, through the centres of the square ends'),...AX([[1,0,0],[0,0,1]],2,'Through the centres of opposite rectangular faces'),...AX([[1,0,1],[1,0,-1]],2,'Through the midpoints of opposite vertical edges')],
+  planes:[...PL([[0,1,0]],'Horizontal, halfway up'),...PL([[1,0,0],[0,0,1]],'Vertical, parallel to faces'),...PL([[1,0,1],[1,0,-1]],'Vertical diagonal')]},
+ cylinder:{name:'Cylinder',planes:'Infinitely many',sum:'1 axis of infinite order (central axis) and infinitely many axes of order 2 (diameters of the middle slice)',
+  axes:[...AX([[0,1,0]],INF,'Central axis, through the centres of the circular faces'),...AX([[1,0,0]],2,'Across the middle (one of infinitely many)')],
+  planes:[...PL([[1,0,0],[0,0,1]],'Vertical plane through the axis (one of infinitely many)'),...PL([[0,1,0]],'Horizontal middle slice')]},
+ cone:{name:'Cone',planes:'Infinitely many',sum:'1 axis of infinite order',
+  axes:AX([[0,1,0]],INF,'From the apex to the centre of the base'),planes:PL([[1,0,0],[0,0,1]],'Vertical plane through the apex (one of infinitely many)')},
+ sphere:{name:'Sphere',planes:'Infinitely many',sum:'Infinitely many axes (every line through the centre), each of infinite order',
+  axes:AX([[0,1,0]],INF,'Any line through the centre (one of infinitely many)'),planes:PL(XYZ,'Any plane through the centre (one of infinitely many)')},
+ pyramid:{name:'Square pyramid',planes:'4',sum:'1 axis of order 4',
+  axes:AX([[0,1,0]],4,'From the apex to the centre of the base'),
+  planes:[...PL([[1,0,0],[0,0,1]],'Through the apex and the midpoints of opposite base edges'),...PL([[1,0,1],[1,0,-1]],'Through the apex and opposite base corners')]},
+ prism:{name:'Triangular prism',planes:'4',sum:'1 axis of order 3, 3 axes of order 2 (equilateral triangle ends)',
+  axes:[...AX([[0,1,0]],3,'Joins the centres of the triangular ends'),...AX([[0,0,1],[.866,0,-.5],[-.866,0,-.5]],2,'Through the midpoint of a vertical edge and the centre of the opposite rectangular face')],
+  planes:[...PL([[1,0,0],[-.5,0,-.866],[-.5,0,.866]],'Vertical, through one edge and the opposite face'),...PL([[0,1,0]],'Horizontal, halfway up')]},
+ tetra:{name:'Regular tetrahedron',planes:'6',sum:'4 axes of order 3, 3 axes of order 2',
+  axes:[...AX([[1,1,1],[-1,-1,1],[-1,1,-1],[1,-1,-1]],3,'From a vertex to the centre of the opposite face'),...AX(XYZ,2,'Through the midpoints of opposite edges')],
+  planes:PL([[1,-1,0],[1,1,0],[1,0,-1],[1,0,1],[0,1,-1],[0,1,1]],'Contains one edge and the midpoint of the opposite edge')}
+};
+const KEYS=Object.keys(S), ord=n=>n===INF?'∞':n;
+const GEO={cube:()=>new THREE.BoxGeometry(2,2,2),cuboid:()=>new THREE.BoxGeometry(3,2,1.2),sqprism:()=>new THREE.BoxGeometry(2,3,2),
+ cylinder:()=>new THREE.CylinderGeometry(1,1,2.2,64),cone:()=>new THREE.ConeGeometry(1.1,2.2,64),sphere:()=>new THREE.SphereGeometry(1.3,48,32),
+ pyramid:()=>{const g=new THREE.ConeGeometry(Math.SQRT2,2,4);g.rotateY(Math.PI/4);return g}, // 4-sided cone, turned so base edges align with x and z
+ prism:()=>new THREE.CylinderGeometry(1.2,1.2,2,3), // 3-sided cylinder = equilateral triangular prism, axis = y
+ tetra:()=>new THREE.TetrahedronGeometry(1.6)}; // vertices at (±1,±1,±1) directions
+const CURVED=['cylinder','cone','sphere'];
+
+/* ---------- 3D VIEWER (Three.js + OrbitControls) ---------- */
+function Viewer(el){
+ const r=new THREE.WebGLRenderer({antialias:true,alpha:true});r.setPixelRatio(Math.min(devicePixelRatio,2));r.localClippingEnabled=true;el.appendChild(r.domElement);
+ const sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(45,1,.1,100);cam.position.set(4.5,3.2,5.5);
+ sc.add(new THREE.AmbientLight(0xffffff,.75));const dl=new THREE.DirectionalLight(0xffffff,.7);dl.position.set(4,7,5);sc.add(dl);
+ const ctl=new THREE.OrbitControls(cam,r.domElement);ctl.enableDamping=true;ctl.enablePan=false;
+ const rot=new THREE.Group(),deco=new THREE.Group(),halves=new THREE.Group(),ghost=new THREE.Group(),axisG=new THREE.Group();
+ sc.add(rot,deco,halves,ghost,axisG);ghost.visible=false;
+ let geo,eg,key,H=[],N=null;
+ new ResizeObserver(()=>{const w=el.clientWidth,h=el.clientHeight;if(!w||!h)return;r.setSize(w,h);cam.aspect=w/h;cam.updateProjectionMatrix()}).observe(el);
+ (function loop(){requestAnimationFrame(loop);if(!el.offsetParent)return;ctl.update();r.render(sc,cam)})();
+ const v={
+  setObject(k){key=k;[rot,deco,halves,ghost,axisG].forEach(g=>g.clear());H=[];rot.visible=true;rot.quaternion.identity();
+   geo=GEO[k]();eg=new THREE.EdgesGeometry(geo,20);
+   const m=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({color:0x818cf8,transparent:true,opacity:.85,roughness:.5,flatShading:!CURVED.includes(k)}));
+   rot.add(m,new THREE.LineSegments(eg,new THREE.LineBasicMaterial({color:0x1f2937})));
+   ghost.add(new THREE.LineSegments(eg,new THREE.LineBasicMaterial({color:0x4f46e5,transparent:true,opacity:.4})));},
+  showGhost(b){ghost.visible=b},
+  // dashed axis built from short cylinders so it is clearly visible
+  showAxis(a){axisG.clear();if(!a)return;const m=new THREE.MeshBasicMaterial({color:0xf97316});
+   for(let t=-2.7;t<2.7;t+=.3){const c=new THREE.Mesh(new THREE.CylinderGeometry(.03,.03,.18,8),m);c.position.copy(a.d).multiplyScalar(t+.09);c.quaternion.setFromUnitVectors(V(0,1,0),a.d);axisG.add(c)}},
+  setAngle(deg,d){rot.quaternion.setFromAxisAngle(d,deg*Math.PI/180)},
+  // plane = translucent sheet; the solid is shown as two clipped halves (one each side of the plane)
+  showPlane(p,split){deco.clear();halves.clear();H=[];if(!p){rot.visible=true;return}
+   N=p.n;const sheet=new THREE.Mesh(new THREE.PlaneGeometry(4.8,4.8),new THREE.MeshBasicMaterial({color:0xf97316,transparent:true,opacity:.3,side:THREE.DoubleSide,depthWrite:false}));
+   sheet.quaternion.setFromUnitVectors(V(0,0,1),N);deco.add(sheet);rot.visible=false;
+   [[1,0x6366f1],[-1,0xc7d2fe]].forEach(([s,col])=>{const pl=new THREE.Plane(N.clone().multiplyScalar(s),0);
+    const m=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({color:col,side:THREE.DoubleSide,roughness:.5,flatShading:!CURVED.includes(key),clippingPlanes:[pl]}));
+    m.add(new THREE.LineSegments(eg,new THREE.LineBasicMaterial({color:0x1f2937,clippingPlanes:[pl]})));halves.add(m);H.push({m,pl,s})});
+   v.setSplit(split||0)},
+  setSplit(d){H.forEach(h=>{h.m.position.copy(N).multiplyScalar(h.s*d);h.pl.constant=-d})}
+ };return v}
+
+/* ---------- UI helper: row of toggle buttons ---------- */
+function pills(sel,labels,cb,start=0){const el=$(sel);el.innerHTML='';
+ labels.forEach((t,i)=>{const b=document.createElement('button');b.textContent=t;b.onclick=()=>{[...el.children].forEach(c=>c.classList.remove('on'));b.classList.add('on');cb(i)};el.appendChild(b)});
+ if(start>=0&&labels.length)el.children[start].onclick()}
+const names=ks=>ks.map(k=>S[k].name);
+
+/* ---------- Tabs ---------- */
+document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>{
+ document.querySelectorAll('#nav button,.tab').forEach(e=>e.classList.remove('on'));b.classList.add('on');$('#'+b.dataset.t).classList.add('on');scrollTo(0,0)});
+
+/* ---------- SECTION A ---------- */
+const vA=Viewer($('#vA')),KA=['cylinder','cube','pyramid','cone','sphere'];let kA;
+pills('#pA',names(KA),i=>{kA=KA[i];vA.setObject(kA);pills('#axA',S[kA].axes.map((a,j)=>'Axis '+(j+1)),j=>{
+ const a=S[kA].axes[j];vA.showAxis(a);
+ $('#whyA').innerHTML=`<b>${a.l}.</b> `+(a.n===INF?`Turn the ${S[kA].name.toLowerCase()} by <i>any</i> angle about this dashed line and it looks exactly the same.`:`Turn the ${S[kA].name.toLowerCase()} by ${360/a.n}° about this dashed line and it fits exactly onto itself, so it is an axis of symmetry.`)})});
+
+/* ---------- SECTION B ---------- */
+const vB=Viewer($('#vB')),sl=$('#slB');let kB,aB,deg=0,playing=false;vB.showGhost(true);
+const fits=d=>{if(aB.n===INF)return true;const s=360/aB.n,r=d%s;return r<.6||s-r<.6};
+function updB(d){deg=d;sl.value=Math.round(d);vB.setAngle(d,aB.d);const n=aB.n,s=360/n,ok=fits(d);
+ const so=n===INF?n:(d>=359.4?n:Math.floor(d/s+.01)+1);
+ $('#rdB').innerHTML=`<div class="big">${Math.round(d)}°</div><span class="${ok?'ok':'no'}">${ok?'Fits exactly onto its original position ✓':'Not matching yet ✗'}</span>
+ <p style="margin:10px 0 4px"><b>Axis:</b> ${aB.l}<br><b>Order about this axis:</b> ${ord(n)}${n===INF?' (every angle fits)':''}<br>Fits so far: ${n===INF?'∞':so+' of '+n}</p>
+ <div class="formula">${n===INF?'Smallest angle → 0°, so the order is infinite':`Order = 360° ÷ ${s}° = ${n}`}</div>`}
+function pickB(j){aB=S[kB].axes[j];vB.showAxis(aB);playing=false;$('#plB').textContent='Play';
+ const n=aB.n;$('#tkB').innerHTML=n===INF?'':Array.from({length:n+1},(_,k)=>`<i style="left:${k/n*100}%"></i><b style="left:${k/n*100}%">${Math.round(k*360/n)}°</b>`).join('');updB(0)}
+pills('#pB',names(KEYS),i=>{kB=KEYS[i];vB.setObject(kB);vB.showGhost(true);pills('#axB',S[kB].axes.map((a,j)=>'Axis '+(j+1)+' · order '+ord(a.n)),pickB)});
+sl.oninput=()=>{playing=false;$('#plB').textContent='Play';updB(+sl.value)};
+$('#nxB').onclick=()=>{const s=aB.n===INF?30:360/aB.n;let t=(Math.floor(deg/s+1e-6)+1)*s;if(t>360)t=0;updB(t)};
+$('#plB').onclick=()=>{if(playing){playing=false;$('#plB').textContent='Play';return}
+ playing=true;$('#plB').textContent='Pause';if(deg>=360)updB(0);let hold=0;
+ (function f(t){if(!playing)return;if(t<hold)return requestAnimationFrame(f);
+  let d=deg+1.2;if(d>=360){updB(360);playing=false;$('#plB').textContent='Play';return}
+  if(aB.n!==INF&&fits(d)){d=Math.round(d/(360/aB.n))*(360/aB.n);hold=t+700}updB(d);requestAnimationFrame(f)})(0)};
+
+/* ---------- SECTION C ---------- */
+const vC=Viewer($('#vC'));let kC,pC=null,onC=true;
+function showC(){vC.showPlane(onC?pC:null,+$('#spC').value);$('#tgC').textContent=onC?'Hide plane':'Show plane';
+ $('#txC').innerHTML=onC?`<b>${pC.l}.</b> The two coloured halves are identical mirror images. ${S[kC].name} has <b>${S[kC].planes}</b> plane(s) of symmetry in total.`:'Plane hidden: this is the whole solid.'}
+pills('#pC',names(KEYS),i=>{kC=KEYS[i];vC.setObject(kC);pills('#plC',S[kC].planes.map((p,j)=>'Plane '+(j+1)),j=>{pC=S[kC].planes[j];onC=true;showC()})});
+$('#tgC').onclick=()=>{onC=!onC;showC()};$('#spC').oninput=()=>{if(onC)vC.setSplit(+$('#spC').value)};
+
+/* ---------- EXPLORER ---------- */
+const vX=Viewer($('#vX'));
+const clr=s=>document.querySelectorAll(s+' .on').forEach(e=>e.classList.remove('on'));
+pills('#pX',names(KEYS),i=>{const k=KEYS[i],s=S[k];vX.setObject(k);vX.showPlane(null);
+ $('#sumX').textContent=s.sum;$('#plsX').innerHTML=`<b>${s.planes}</b> plane(s) of symmetry. Tap one to see it.`;
+ pills('#axX',s.axes.map((a,j)=>'Axis '+(j+1)),j=>{const a=s.axes[j];clr('#plX');vX.showPlane(null);vX.showAxis(a);
+  $('#ordX').innerHTML=`<b>${a.l}.</b><br>Order about this axis: <b>${ord(a.n)}</b>${a.n===INF?'':' (smallest turn '+360/a.n+'°)'}`});
+ pills('#plX',s.planes.map((p,j)=>'Plane '+(j+1)),j=>{clr('#axX');vX.showAxis(null);vX.showPlane(s.planes[j],0);$('#ordX').textContent='Choose an axis above to see its order.'},-1)});
+
+/* ---------- QUIZ ---------- */
+const TF=['True','False'];
+const QZ=[
+ {t:'Rotation',q:'What is the order of rotational symmetry of a cube about an axis through the centres of two opposite faces?',o:['2','3','4','6'],a:2,why:'A quarter-turn (90°) maps the cube onto itself, so the order is 360° ÷ 90° = 4.',k:'cube',ax:0},
+ {t:'Planes',q:'How many planes of symmetry does a cube have?',o:['3','6','9','12'],a:2,why:'3 planes parallel to the faces plus 6 diagonal planes through opposite edges = 9.',k:'cube',pl:3},
+ {t:'Planes',q:'A cuboid has three different dimensions. How many planes of symmetry does it have?',o:['1','3','6','9'],a:1,why:'Only the 3 planes parallel to its faces give mirror-image halves. Diagonal planes do not.',k:'cuboid',pl:0},
+ {t:'Rotation',q:'What is the order of rotational symmetry of an equilateral triangular prism about the axis joining the centres of its triangular ends?',o:['2','3','4','6'],a:1,why:'The triangle fits onto itself every 120°, so the order is 360° ÷ 120° = 3.',k:'prism',ax:0},
+ {t:'Concept',q:'True or false: a sphere has only one axis of rotational symmetry.',o:TF,a:1,why:'False. Every line through the centre of a sphere is an axis, so there are infinitely many.',k:'sphere',ax:0},
+ {t:'Planes',q:'How many planes of symmetry does a square-based pyramid have?',o:['1','2','4','8'],a:2,why:'2 planes through midpoints of opposite base edges plus 2 through opposite base corners = 4.',k:'pyramid',pl:2},
+ {t:'Axes',q:'Which line is an axis of rotational symmetry of a cone?',o:['The line from the apex to the centre of the base','A line along the sloping surface','A line across the base only','A line joining two points on the curved surface'],a:0,why:'The cone only looks unchanged when it is turned about the line from its apex to the centre of its circular base.',k:'cone',ax:0},
+ {t:'Planes',q:'How many planes of symmetry does a regular tetrahedron have?',o:['4','6','8','12'],a:1,why:'Each of its 6 edges lies in one plane that also cuts the opposite edge at its midpoint, so there are 6.',k:'tetra',pl:0},
+ {t:'Rotation',q:'True or false: a cube has rotational symmetry of order 4 about every axis through its centre.',o:TF,a:1,why:'False. The order depends on the axis: 4 through opposite faces, 3 through opposite vertices (shown) and 2 through opposite edge midpoints.',k:'cube',ax:3},
+ {t:'Rotation',q:'What is the order of rotational symmetry of a cylinder about its central axis?',o:['2','4','8','Infinite'],a:3,why:'A cylinder fits onto itself after any turn about its central axis, so the order is infinite.',k:'cylinder',ax:0}];
+const vQ=Viewer($('#vQ'));let qi=0,score=0,res=[];
+function ask(){const Q=QZ[qi];$('#vQ').hidden=true;
+ $('#qbox').innerHTML=`<div class="bar"><div style="width:${qi*10}%"></div></div><p class="hint">Question ${qi+1} of 10 · Score ${score}</p><p><b>${Q.q}</b></p>`+
+  Q.o.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('')+'<div id="fb"></div>';
+ document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>answer(+b.dataset.i))}
+function answer(i){const Q=QZ[qi],ok=i===Q.a;if(ok)score++;res.push([Q.t,ok]);
+ document.querySelectorAll('.opt').forEach((b,j)=>{b.disabled=true;if(j===Q.a)b.classList.add('right');else if(j===i)b.classList.add('wrong')});
+ $('#fb').innerHTML=`<div class="fb"><b>${ok?'Correct ✓':'Not quite ✗'}</b><br>${Q.why}</div><button class="btn pri" id="nx" style="margin-top:12px">${qi<9?'Next':'See results'}</button>`;
+ $('#nx').onclick=()=>{qi++;qi<10?ask():finish()};
+ $('#vQ').hidden=false;vQ.setObject(Q.k);vQ.showAxis(Q.ax!=null?S[Q.k].axes[Q.ax]:null);if(Q.pl!=null)vQ.showPlane(S[Q.k].planes[Q.pl],0)}
+function finish(){$('#vQ').hidden=true;const g={};res.forEach(([t,ok])=>{g[t]=g[t]||[0,0];g[t][1]++;if(ok)g[t][0]++});
+ const msg=score>=9?'Excellent! You really understand 3D symmetry.':score>=7?'Good work. Revisit the topics below and try again.':score>=5?'A decent start. Re-read Sections A–C, then retry.':'Keep going! Spend more time in the explorer, then retry.';
+ $('#qbox').innerHTML=`<div class="bar"><div style="width:100%"></div></div><div class="big">${score} / 10</div><p>${msg}</p>
+ <table>${Object.entries(g).map(([t,[c,n]])=>`<tr><td>${t}</td><td>${c} / ${n}</td></tr>`).join('')}</table><button class="btn pri" id="rs" style="margin-top:14px">Try again</button>`;
+ $('#rs').onclick=()=>{qi=0;score=0;res=[];ask()}}
+ask();
+
+document.querySelector('#nav button').click();
+</script></body></html>
